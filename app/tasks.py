@@ -40,7 +40,7 @@ def compress_image(image_url, request_id):
     file_name = os.path.basename(image_url.split('?')[0])
     compressed_image_path = os.path.join(request_dir, f"compressed_{file_name}")
 
-    img.save(compressed_image_path, format=output_format, quality=50)
+    img.save(compressed_image_path, format=output_format, quality=50) # sticking to 50% quality as per the product requirements
     return compressed_image_path
 
 @celery_app.task
