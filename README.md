@@ -94,3 +94,7 @@ Check the status of image processing with the request ID:.
 ```bash
 curl --location 'localhost:8000/status/c8c27581-2a81-448e-833c-3cd9fc45fe1e'
 ```
+
+**Postman link to test the above APIs**
+
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/38192844-2f13bd54-1840-4ad6-b1c8-8afdbdc1c227?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D38192844-2f13bd54-1840-4ad6-b1c8-8afdbdc1c227%26entityType%3Dcollection%26workspaceId%3Da5896f37-2af5-497e-ae26-8b08d2c190e8)
