@@ -104,3 +104,21 @@ curl --location 'localhost:8000/status/c8c27581-2a81-448e-833c-3cd9fc45fe1e'
 
 <img width="675" alt="image" src="https://github.com/user-attachments/assets/df7b7932-debd-462f-aa81-2158462489fc">
 
+
+
+**Explanation of steps**
+
+1. **CSV Uploader**
+
+When a user uploads a CSV file, it is first validated. After validation, the relevant information is extracted from the CSV file and stored in the database.
+
+
+2. **Task Queue**
+
+After the product is created, a Celery task is added to the queue for image processing.
+
+3. **Image Processor**
+
+The images are fetched from the input URLs, compressed, and saved to local or cloud storage. After completing this process, an output CSV file is generated.
+
+
