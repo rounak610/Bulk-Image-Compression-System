@@ -1,5 +1,5 @@
 # Bulk-Image-Compression-System
-This is a FastAPI-based application that processes images from a CSV file, compresses them, and stores the output in a PostgreSQL database. The application uses Celery and Redis for background task processing.
+This project is a web application built using Python. It uses FastAPI for the web server, PostgreSQL for storing data, and Celery for handling background tasks. 
 
 ### Setup
 
