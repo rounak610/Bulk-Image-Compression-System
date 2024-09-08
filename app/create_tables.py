@@ -1,5 +1,4 @@
 from app.database import engine, Base
-from app.models import Product  # Import your Product model
 
 def create_tables():
     with engine.begin() as conn:

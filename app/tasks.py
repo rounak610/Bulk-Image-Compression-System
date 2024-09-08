@@ -7,6 +7,7 @@ from app.database import get_session
 from app.models import Product
 from sqlalchemy.future import select
 import csv
+from webhook import call_webhook
 
 celery_app = Celery('tasks')
 celery_app.config_from_object('app.celeryconfig')
@@ -44,7 +45,6 @@ def compress_image(image_url, request_id):
 
 @celery_app.task
 def process_images(product_id, image_urls):
-    # Use a synchronous session
     session = get_session()
     try:
         stmt = select(Product).filter(Product.id == product_id)
@@ -52,11 +52,13 @@ def process_images(product_id, image_urls):
         product = result.scalar_one_or_none()
         if product:
             output_urls = [compress_image(url, product.request_id) for url in image_urls]
-            product.output_image_url = ','.join(output_urls) # type: ignore
-            product.status = "Completed" # type: ignore
+            product.output_image_url = ','.join(output_urls)
+            product.status = "Completed"
             session.commit()
-
             generate_output_csv(product)
+            # now we can call a webhook after the task is completed
+            # call_webhook(product.webhook_url, {"status": "Completed"})
+
     finally:
         session.close()
 

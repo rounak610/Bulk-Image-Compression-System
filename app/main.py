@@ -31,9 +31,8 @@ async def upload_csv(file: UploadFile, session: Session = Depends(get_session)):
             request_id=request_id
         )
         session.add(new_product)
-        session.commit()  # Commit synchronously
+        session.commit()
 
-        # Start the asynchronous image processing task
         process_images.delay(new_product.id, image_urls)
 
     return {"request_id": request_id}
