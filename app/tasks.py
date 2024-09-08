@@ -7,7 +7,7 @@ from app.database import get_session
 from app.models import Product
 from sqlalchemy.future import select
 import csv
-from webhook import call_webhook
+from app.webhook import call_webhook
 
 celery_app = Celery('tasks')
 celery_app.config_from_object('app.celeryconfig')
