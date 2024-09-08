@@ -8,8 +8,8 @@ This is a FastAPI-based application that processes images from a CSV file, compr
 Clone the repository and navigate to the project directory:
 
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone [<repository-url>](https://github.com/rounak610/Bulk-Image-Compression-System.git)
+cd Bulk-Image-Compression-System
 ```
 2. **Create and Activate a Virtual Environment**
    
