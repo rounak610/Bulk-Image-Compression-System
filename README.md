@@ -1,6 +1,8 @@
 # Bulk-Image-Compression-System
 This project is a web application built using Python. It uses FastAPI for the web server, PostgreSQL for storing data, and Celery for handling background tasks. 
 
+The application allows users to upload a CSV file containing image URLs. The application then fetches the images from the provided URLs, compresses them, and stores the compressed images in a local folder named after the request ID (images can be stored in a cloud storage also like AWS S3). Additionally, an output CSV file is created containing information about the processed images, including the original URL, compressed image path, and other relevant details.
+
 ### Setup
 
 1. **Clone the Repository**
