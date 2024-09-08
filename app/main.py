@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile, Depends, HTTPException
 from uuid import uuid4
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import Session
 from app.database import get_session
 from app.models import Product
 from app.utils import validate_csv, extract_image_urls
@@ -14,7 +14,7 @@ def root():
     return {"message": "Server is running...."}
 
 @app.post("/upload-csv/")
-async def upload_csv(file: UploadFile, session: AsyncSession = Depends(get_session)):
+async def upload_csv(file: UploadFile, session: Session = Depends(get_session)):
     try:
         csv_data = await validate_csv(file)
     except ValueError as e:
@@ -26,12 +26,12 @@ async def upload_csv(file: UploadFile, session: AsyncSession = Depends(get_sessi
     for product_name, image_urls in image_urls_by_product.items():
         new_product = Product(
             name=product_name,
-            input_image_urls=','.join(image_urls),
+            input_image_url=','.join(image_urls),
             status="Pending",
             request_id=request_id
         )
         session.add(new_product)
-        await session.commit()
+        session.commit()  # Commit synchronously
 
         # Start the asynchronous image processing task
         process_images.delay(new_product.id, image_urls)
@@ -39,9 +39,9 @@ async def upload_csv(file: UploadFile, session: AsyncSession = Depends(get_sessi
     return {"request_id": request_id}
 
 @app.get("/status/{request_id}")
-async def get_status(request_id: str, session: AsyncSession = Depends(get_session)):
-    result = await session.execute(select(Product).filter(Product.request_id == request_id))
-    products = result.scalars().all()  # Fetch all matching products
+def get_status(request_id: str, session: Session = Depends(get_session)):
+    result = session.execute(select(Product).filter(Product.request_id == request_id))
+    products = result.scalars().all() 
 
     if not products:
         raise HTTPException(status_code=404, detail="Request ID not found")

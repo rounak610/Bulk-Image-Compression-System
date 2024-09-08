@@ -163,4 +163,5 @@ cython_debug/
 
 myenv
 dump.rdb
-images
+output_images
+output_csv
