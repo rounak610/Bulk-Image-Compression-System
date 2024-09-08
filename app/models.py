@@ -7,4 +7,5 @@ class Product(Base):
     name = Column(String, index=True)
     input_image_urls = Column(String)
     output_image_urls = Column(String, nullable=True)
-    status = Column(String, default="Pending")  # Track processing status
+    status = Column(String, default="Pending")
+    request_id = Column(String, index=True, nullable=True)
