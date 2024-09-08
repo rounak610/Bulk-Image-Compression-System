@@ -17,7 +17,7 @@ cd Bulk-Image-Compression-System
    
 Create a Python virtual environment and activate it:
 ```bash
-virtualenv myenv
+python3 -m venv myenv
 source myenv/bin/activate
 ```
 
